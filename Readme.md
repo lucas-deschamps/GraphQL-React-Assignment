@@ -1,20 +1,4 @@
-# Feather - Junior Fullstack Engineer code challenge
-
-In this code challenge you'll need to create a simple admin panel from scratch. It would need to have a single table view to list insurance policies showcasing all the various field they may have.
-
-The [frontend](./frontend) part would communicate with the [backend](./backend) through a GraphQL API. You need to implement both.
-
-We've generated some boilerplate for you to get started.
-
-## What we'll be looking at
-
-- How you write idiomatic code.
-- How you deal with UI/UX.
-- How you navigate the requirements.
-- How you test & write testable code.
-- How you package the code.
-- How you deal with the security concerns.
-- How you communicate with your fellow programmers.
+# GraphQL/React Challenge
 
 ## Tasks
 

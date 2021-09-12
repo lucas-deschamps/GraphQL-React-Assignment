@@ -1,13 +1,3 @@
-# Frontend
-
-This is the frontend part of the [Junior Fullstack Engineer code challenge](../Readme.md).
-
-This project has been set up with:
-
-- [Create react app](https://create-react-app.dev)
-- [Tailwindcss](https://tailwindcss.com)
-- [TypeScript](https://www.typescriptlang.org)
-
 ## Getting started
 
 Install the dependencies:

@@ -1,7 +1,3 @@
-# Backend
-
-This is the backend part of the [Junior Fullstack Engineer code challenge](../Readme.md)
-
 ## Getting started
 
 Install the dependencies:
