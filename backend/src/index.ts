@@ -1,7 +1,9 @@
 import { ApolloServer, gql } from "apollo-server";
+import { GraphQLDateTime, GraphQLDate } from 'graphql-iso-date';
 
 const typeDefs = gql`
   scalar Date
+  scalar DateTime
 
   enum InsuranceType {
     Liability
@@ -30,15 +32,18 @@ const typeDefs = gql`
     policyNumber: String!
     startDate: Date!
     endDate: Date!
-    createdAt: Date!
+    createdAt: DateTime!
   }
 
   type Query {
-    customers: [Customer]
+    customers: [Customer!]
   }
 `;
 
-const resolvers = {};
+const resolvers = {
+  Date: GraphQLDate,
+  DateTime: GraphQLDateTime,
+};
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
