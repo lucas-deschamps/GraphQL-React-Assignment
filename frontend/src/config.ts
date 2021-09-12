@@ -1,0 +1,1 @@
+export const GRAPHQL_API_URL: string = 'http://localhost:4000/graphql';
