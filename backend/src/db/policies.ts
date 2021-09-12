@@ -13,7 +13,11 @@ export enum PolicyStatus {
 
 export const policies = [
   {
-    customer: "Kyle Eastwood",
+    customer: {
+      firstName: "Kyle",
+      lastName: "Eastwood",
+      dateOfBirth: "1967-01-01"
+    },
     provider: "Allianz",
     insuranceType: InsuranceType.Health,
     status: PolicyStatus.Active,
@@ -22,7 +26,11 @@ export const policies = [
     createdAt: new Date(2017, 2, 3).toISOString(),
   },
   {
-    customer: "Pedro Lopez",
+    customer: {
+      firstName: "Pedro",
+      lastName: "Lopez",
+      dateOfBirth: "1996-02-05"
+    },
     provider: "Allianz",
     insuranceType: InsuranceType.Health,
     status: PolicyStatus.Pending,
@@ -31,7 +39,11 @@ export const policies = [
     createdAt: new Date(2021, 9, 6).toISOString(),
   },
   {
-    customer: "Angela Su",
+    customer: {
+      firstName: "Angela",
+      lastName: "Su",
+      dateOfBirth: "1967-01-01"
+    },
     provider: "AXA",
     insuranceType: InsuranceType.Household,
     status: PolicyStatus.Active,
@@ -40,7 +52,11 @@ export const policies = [
     createdAt: new Date(2000, 10, 27).toISOString(),
   },
   {
-    customer: "Ngozi Anyanwu",
+    customer: {
+      firstName: "Ngozi",
+      lastName: "Anyanwu",
+      dateOfBirth: "1986-07-23"
+    },
     provider: "AXA",
     insuranceType: InsuranceType.Health,
     status: PolicyStatus.Active,
@@ -49,7 +65,11 @@ export const policies = [
     createdAt: new Date(2019, 5, 23).toISOString(),
   },
   {
-    customer: "Pieter Broek",
+    customer: {
+      firstName: "Pieter",
+      lastName: "Broek",
+      dateOfBirth: "1987-06-11"
+    },
     provider: "Talanx",
     insuranceType: InsuranceType.Liability,
     status: PolicyStatus.DroppedOut,
@@ -58,7 +78,11 @@ export const policies = [
     createdAt: new Date(2020, 2, 16).toISOString(),
   },
   {
-    customer: "Kenji Yamada",
+    customer: {
+      firstName: "Kenji",
+      lastName: "Yamada",
+      dateOfBirth: "1992-04-22"
+    },
     provider: "Allianz",
     insuranceType: InsuranceType.Health,
     status: PolicyStatus.Cancelled,
@@ -67,7 +91,11 @@ export const policies = [
     createdAt: new Date(2018, 1, 8).toISOString(),
   },
   {
-    customer: "Hans Müller",
+    customer: {
+      firstName: "Hans",
+      lastName: "Müller",
+      dateOfBirth: "1955-10-03"
+    },
     provider: "Talanx",
     insuranceType: InsuranceType.Liability,
     status: PolicyStatus.Pending,
@@ -76,7 +104,11 @@ export const policies = [
     createdAt: new Date(2021, 9, 1).toISOString(),
   },
   {
-    customer: "Gwen O'Donnell",
+    customer: {
+      firstName: "Gwen",
+      lastName: "O'Donnell",
+      dateOfBirth: "1983-03-10"
+    },
     provider: "Allianz",
     insuranceType: InsuranceType.Health,
     status: PolicyStatus.Cancelled,

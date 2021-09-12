@@ -36,6 +36,7 @@ const typeDefinitions = gql`
 
   type Query {
     customers: [Customer!]
+    policies: [Policy!]
   }
 `;
 
