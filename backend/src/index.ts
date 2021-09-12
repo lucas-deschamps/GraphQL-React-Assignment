@@ -1,49 +1,7 @@
-import { ApolloServer, gql } from "apollo-server";
-import { GraphQLDateTime, GraphQLDate } from 'graphql-iso-date';
+import { ApolloServer } from "apollo-server";
 
-const typeDefs = gql`
-  scalar Date
-  scalar DateTime
-
-  enum InsuranceType {
-    Liability
-    Household
-    Health
-  }
-
-  enum PolicyStatus {
-    Active
-    Pending
-    Cancelled
-    Dropped out
-  }
-
-  type Customer {
-    firstName: String!
-    lastName: String!
-    dateOfBirth: Date!
-  }
-
-  type Policy {
-    customer: Customer!
-    provider: String!
-    insuranceType: InsuranceType!
-    status: PolicyStatus!
-    policyNumber: String!
-    startDate: Date!
-    endDate: Date!
-    createdAt: DateTime!
-  }
-
-  type Query {
-    customers: [Customer!]
-  }
-`;
-
-const resolvers = {
-  Date: GraphQLDate,
-  DateTime: GraphQLDateTime,
-};
+import typeDefs from './schema/type-definitions';
+import resolvers from './schema/resolvers';
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
