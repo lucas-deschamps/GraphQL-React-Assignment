@@ -5,16 +5,16 @@ const typeDefinitions = gql`
   scalar DateTime
 
   enum InsuranceType {
-    Liability
-    Household
-    Health
+    LIABILITY
+    HOUSEHOLD
+    HEALTH
   }
 
   enum PolicyStatus {
-    Active
-    Pending
-    Cancelled
-    Dropped out
+    ACTIVE
+    PENDING
+    CANCELLED
+    DROPPED_OUT
   }
 
   type Customer {

@@ -4,8 +4,8 @@ const resolvers = {
   Date: GraphQLDate,
   DateTime: GraphQLDateTime,
   Query: {
-    // 
-  }
+    //
+  },
 };
 
 export default resolvers;
