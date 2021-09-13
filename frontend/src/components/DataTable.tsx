@@ -1,6 +1,8 @@
 import React from 'react';
+import { ApolloError } from '@apollo/client';
 
-const DataTable = ({ data, loading, error }: {data: any, loading: any, error: any}): JSX.Element => {
+const DataTable = ({ data, loading, error }: {data: {[policies: string]: string[]}, loading: boolean, error: undefined | ApolloError }): JSX.Element => {
+
   if (loading) return <h2 className="flex flex-row justify-center font-medium m-20">Loading...</h2>;
   if (data) console.log(data, loading, error);
 

@@ -5,7 +5,7 @@ import { QUERY_ALL_POLICIES } from './graphql/policy/policy-queries';
 
 // Components
 import DataTable from './components/DataTable';
-import Pagination from './components/PaginationRow';
+import PaginationRow from './components/PaginationRow';
 
 // CSS
 import "./index.css";
@@ -20,7 +20,7 @@ function App(): JSX.Element {
   return (
       <>
         <DataTable data={policyData} loading={policyLoading} error={policyError} />
-        <Pagination />
+        <PaginationRow />
       </>
   );
 }
