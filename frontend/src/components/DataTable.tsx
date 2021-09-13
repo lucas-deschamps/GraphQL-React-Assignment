@@ -56,7 +56,7 @@ const DataTable = () => {
               {
                 policyData && policyData.policies.map((record: any) => {
                   return (
-                    <tr>
+                    <tr key={record.policyNumber}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           {record.customer.firstName} {record.customer.lastName}
