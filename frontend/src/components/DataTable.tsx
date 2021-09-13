@@ -12,7 +12,7 @@ const DataTable = () => {
   } = useQuery(QUERY_ALL_POLICIES);
 
   // Debugging
-  if (policyLoading) return <h2>Loading...</h2>;
+  if (policyLoading) return <h2 className="flex flex-row justify-center font-medium p-10">Loading...</h2>;
   if (policyError) console.log(policyError);
 
   return (
