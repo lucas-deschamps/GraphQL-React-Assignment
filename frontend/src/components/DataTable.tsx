@@ -11,12 +11,12 @@ const DataTable = () => {
     error: policyError 
   } = useQuery(QUERY_ALL_POLICIES);
 
-  // Debugging
-  if (policyLoading) return <h2 className="flex flex-row justify-center font-medium p-10">Loading...</h2>;
+  if (policyLoading) return <h2 className="flex flex-row justify-center font-medium m-20">Loading...</h2>;
   if (policyError) console.log(policyError);
 
   return (
     <div className="flex flex-col items-center">
+      <h1 className="m-8 font-medium font-mono">Get Popsure — Policy Info</h1>
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
