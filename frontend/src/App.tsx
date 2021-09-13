@@ -1,25 +1,27 @@
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
-// Config variables
-import { GRAPHQL_API_URL } from './config';
+// Queries and mutations
+import { QUERY_ALL_POLICIES } from './graphql/policy/policy-queries';
 
 // Components
 import DataTable from './components/DataTable';
+import Pagination from './components/PaginationRow';
 
 // CSS
 import "./index.css";
 
-function App() {
-  // Apollo Client
-  const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    uri: GRAPHQL_API_URL,
-  });
+function App(): JSX.Element {
+  const { 
+    data: policyData, 
+    loading: policyLoading, 
+    error: policyError 
+  } = useQuery(QUERY_ALL_POLICIES);
 
   return (
-    <ApolloProvider client={client}>
-      <DataTable/>
-    </ApolloProvider>
+      <>
+        <DataTable data={policyData} loading={policyLoading} error={policyError} />
+        <Pagination />
+      </>
   );
 }
 

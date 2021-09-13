@@ -1,18 +1,8 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
 
-// Queries and mutations
-import { QUERY_ALL_POLICIES } from '../graphql/policy/policy-queries';
-
-const DataTable = () => {  
-  const { 
-    data: policyData, 
-    loading: policyLoading, 
-    error: policyError 
-  } = useQuery(QUERY_ALL_POLICIES);
-
-  if (policyLoading) return <h2 className="flex flex-row justify-center font-medium m-20">Loading...</h2>;
-  if (policyError) console.log(policyError);
+const DataTable = ({ data, loading, error }: {data: any, loading: any, error: any}): JSX.Element => {
+  if (loading) return <h2 className="flex flex-row justify-center font-medium m-20">Loading...</h2>;
+  if (data) console.log(data, loading, error);
 
   return (
     <div className="flex flex-col items-center">
@@ -54,7 +44,7 @@ const DataTable = () => {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
               {
-                policyData && policyData.policies.map((record: any) => {
+                data && data.policies.map((record: any) => {
                   return (
                     <tr key={record.policyNumber}>
                       <td className="px-6 py-4 whitespace-nowrap">
