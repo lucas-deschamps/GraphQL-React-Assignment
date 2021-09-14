@@ -1,10 +1,10 @@
 import React from 'react';
 import { ApolloError } from '@apollo/client';
 
-const DataTable = ({ data, loading, error }: {data: {[policies: string]: string[]}, loading: boolean, error: undefined | ApolloError }): JSX.Element => {
+const DataTable = ({ data, loading, error }: {data: string[], loading: boolean, error: undefined | ApolloError }): JSX.Element => {
 
   if (loading) return <h2 className="flex flex-row justify-center font-medium m-20">Loading...</h2>;
-  if (data) console.log(data, loading, error);
+  if (error) console.log(error);
 
   return (
     <div className="flex flex-col items-center">
@@ -46,7 +46,7 @@ const DataTable = ({ data, loading, error }: {data: {[policies: string]: string[
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
               {
-                data && data.policies.map((record: any) => {
+                data && data.map((record: any) => {
                   return (
                     <tr key={record.policyNumber}>
                       <td className="px-6 py-4 whitespace-nowrap">
