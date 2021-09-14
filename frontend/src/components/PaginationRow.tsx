@@ -8,7 +8,7 @@ const PaginationRow = (
       <div>
         <p className='text-sm text-gray-700 m-2'>
           Showing
-          <span className='font-medium'>&nbsp;{currentPage * customersPerPage - 5}&nbsp;</span>
+          <span className='font-medium'>&nbsp;{currentPage * customersPerPage - customersPerPage + 1}&nbsp;</span>
           to
           <span className='font-medium'>&nbsp;{currentPage * customersPerPage > total ? total : currentPage * customersPerPage}&nbsp;</span>
           of
