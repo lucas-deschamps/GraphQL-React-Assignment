@@ -1,10 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ApolloError } from '@apollo/client';
 
-const DataTable = ({ data, loading, error }: {data: string[], loading: boolean, error: undefined | ApolloError }): JSX.Element => {
+interface IPolicy {
+  customer: {
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string;
+  }
+  provider: string;
+  insuranceType: string;
+  status: string;
+  policyNumber: string;
+  startDate: string;
+  endDate: string;
+  createdAt: string;
+};
+
+enum SortTypes {
+  Customer = 'customer',
+  Provider = 'provider',
+  InsuranceType = 'insuranceType',
+  Status = 'status',
+  PolicyNumber = 'policyNumber',
+  StartDate = 'startDate',
+  EndDate = 'endDate',
+  CreatedAt = 'CreatedAt'
+};
+
+const DataTable = ({ data, loading, error }: {data: any[], loading: boolean, error: undefined | ApolloError }): JSX.Element => {
+  const [renderData, setRenderData]: [renderData: any[], setRenderData: any] = useState(data);
+  const [sortType, setSortType]: [sortType: any, setSortType: any] = useState('status');
+
+  useEffect(() => {
+    function sortArray(type: SortTypes): void {
+      const sorted: IPolicy[] = data && [...data].sort((a, b) => {
+        if (type === SortTypes.Customer) {
+          const fullNameOne = a.customer.firstName + a.customer.lastName;
+          const fullNameTwo = b.customer.firstName + b.customer.lastName;
+          return fullNameOne.localeCompare(fullNameTwo);
+        }
+        
+        else if (a[type] < b[type]) return -1;
+        else if (a[type] > b[type]) return 1;
+        
+        return 0;
+      });
+      setRenderData(sorted);
+    };
+    
+    sortArray(sortType);
+  }, [sortType, data]);
 
   if (loading) return <h2 className="flex flex-row justify-center font-medium m-20">Loading...</h2>;
   if (error) console.log(error);
+  
+  console.log('DATA: ', data, 'RENDERDATA: ', renderData);
 
   return (
     <div className="flex flex-col items-center">
@@ -17,27 +67,35 @@ const DataTable = ({ data, loading, error }: {data: string[], loading: boolean, 
                 <tr>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Customer
+                      <button type="button" onClick={() => setSortType(SortTypes.Customer)}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Provider
+                      <button type="button" onClick={() => setSortType(SortTypes.Provider)}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Insurance Type
+                      <button type="button" onClick={() => setSortType(SortTypes.InsuranceType)}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
+                      <button type="button" onClick={() => setSortType(SortTypes.Status)}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Policy Number
+                      <button type="button" onClick={() => setSortType(SortTypes.PolicyNumber)}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Start Date
+                      <button type="button" onClick={() => setSortType(SortTypes.StartDate)}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     End Date
+                      <button type="button" onClick={() => setSortType(SortTypes.EndDate)}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Created At
+                      <button type="button" onClick={() => setSortType(SortTypes.CreatedAt)}>H</button>
                   </th>
                   <th scope="col" className="relative px-6 py-3">
                     <span className="sr-only">Edit</span>
@@ -46,7 +104,7 @@ const DataTable = ({ data, loading, error }: {data: string[], loading: boolean, 
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
               {
-                data && data.map((record: any) => {
+                renderData && renderData.map((record: any) => {
                   return (
                     <tr key={record.policyNumber}>
                       <td className="px-6 py-4 whitespace-nowrap">

@@ -21,8 +21,6 @@ function App(): JSX.Element {
     error: policyError 
   } = useQuery(QUERY_ALL_POLICIES);
 
-  console.log(policyData && policyData.policies);
-
   // Pagination
   let currentPageSlice;
 
@@ -43,7 +41,7 @@ function App(): JSX.Element {
           previousPage={paginateBackward} 
           currentPage={currentPage} 
           customersPerPage={customersPerPage} 
-          total={policyData && policyData.policies? policyData.policies.length : 0}
+          total={ policyData && policyData.policies ? policyData.policies.length : 0 }
         />
       </>
   );
