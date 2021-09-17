@@ -27,29 +27,39 @@ enum SortTypes {
   CreatedAt = 'CreatedAt'
 };
 
+enum SortDirection {
+  Descending = -1,
+  Ascending = 1,
+};
+
 const DataTable = ({ data, loading, error }: {data: any[], loading: boolean, error: undefined | ApolloError }): JSX.Element => {
   const [renderData, setRenderData]: [renderData: any[], setRenderData: any] = useState(data);
-  const [sortType, setSortType]: [sortType: any, setSortType: any] = useState('status');
+  const [sortConfig, setSortConfig]: [sortType: any, setSortConfig: any] = useState({ type: SortTypes.Status, direction: SortDirection.Ascending });
 
   useEffect(() => {
-    function sortArray(type: SortTypes): void {
+    function sortArray({ type, direction }: {type: SortTypes, direction: SortDirection}): void {
       const sorted: IPolicy[] = data && [...data].sort((a, b) => {
         if (type === SortTypes.Customer) {
           const fullNameOne = a.customer.firstName + a.customer.lastName;
           const fullNameTwo = b.customer.firstName + b.customer.lastName;
-          return fullNameOne.localeCompare(fullNameTwo);
+          const computedNumberValue = fullNameOne.localeCompare(fullNameTwo);
+
+          return direction === SortDirection.Ascending ? computedNumberValue : computedNumberValue * -1;
         }
         
-        else if (a[type] < b[type]) return -1;
-        else if (a[type] > b[type]) return 1;
+        else if (a[type] < b[type])
+          return direction === SortDirection.Ascending ? -1 : 1;
+        
+        else if (a[type] > b[type])
+          return direction === SortDirection.Ascending ? 1 : -1;
         
         return 0;
       });
       setRenderData(sorted);
     };
-    
-    sortArray(sortType);
-  }, [sortType, data]);
+
+    sortArray(sortConfig);
+  }, [sortConfig, data]);
 
   if (loading) return <h2 className="flex flex-row justify-center font-medium m-20">Loading...</h2>;
   if (error) console.log(error);
@@ -67,35 +77,35 @@ const DataTable = ({ data, loading, error }: {data: any[], loading: boolean, err
                 <tr>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Customer
-                      <button type="button" onClick={() => setSortType(SortTypes.Customer)}>H</button>
+                      <button type="button" onClick={() => setSortConfig({ type: SortTypes.Customer, direction: sortConfig.direction * -1 })}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Provider
-                      <button type="button" onClick={() => setSortType(SortTypes.Provider)}>H</button>
+                      <button type="button" onClick={() => setSortConfig({ type: SortTypes.Provider, direction: sortConfig.direction * -1 })}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Insurance Type
-                      <button type="button" onClick={() => setSortType(SortTypes.InsuranceType)}>H</button>
+                      <button type="button" onClick={() => setSortConfig({ type: SortTypes.InsuranceType, direction: sortConfig.direction * -1 })}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
-                      <button type="button" onClick={() => setSortType(SortTypes.Status)}>H</button>
+                      <button type="button" onClick={() => setSortConfig({ type: SortTypes.Status, direction: sortConfig.direction * -1 })}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Policy Number
-                      <button type="button" onClick={() => setSortType(SortTypes.PolicyNumber)}>H</button>
+                      <button type="button" onClick={() => setSortConfig({ type: SortTypes.PolicyNumber, direction: sortConfig.direction * -1 })}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Start Date
-                      <button type="button" onClick={() => setSortType(SortTypes.StartDate)}>H</button>
+                      <button type="button" onClick={() => setSortConfig({ type: SortTypes.StartDate, direction: sortConfig.direction * -1 })}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     End Date
-                      <button type="button" onClick={() => setSortType(SortTypes.EndDate)}>H</button>
+                      <button type="button" onClick={() => setSortConfig({ type: SortTypes.EndDate, direction: sortConfig.direction * -1 })}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Created At
-                      <button type="button" onClick={() => setSortType(SortTypes.CreatedAt)}>H</button>
+                      <button type="button" onClick={() => setSortConfig({ type: SortTypes.CreatedAt, direction: sortConfig.direction * -1 })}>H</button>
                   </th>
                   <th scope="col" className="relative px-6 py-3">
                     <span className="sr-only">Edit</span>
