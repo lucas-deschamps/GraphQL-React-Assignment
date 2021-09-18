@@ -24,17 +24,26 @@ enum SortTypes {
   PolicyNumber = 'policyNumber',
   StartDate = 'startDate',
   EndDate = 'endDate',
-  CreatedAt = 'CreatedAt'
+  CreatedAt = 'createdAt'
 };
 
 enum SortDirection {
-  Descending = -1,
-  Ascending = 1,
+  Descending,
+  Ascending,
 };
 
-const DataTable = ({ data, loading, error }: {data: any[], loading: boolean, error: undefined | ApolloError }): JSX.Element => {
+const DataTable = ({ data, loading, error }: {data: any[], loading: boolean, error: undefined | ApolloError}): JSX.Element => {
   const [renderData, setRenderData]: [renderData: any[], setRenderData: any] = useState(data);
   const [sortConfig, setSortConfig]: [sortType: any, setSortConfig: any] = useState({ type: SortTypes.Status, direction: SortDirection.Ascending });
+
+  const sortBy = (type: SortTypes): void => {
+    let directionToPass = SortDirection.Ascending;
+
+    if (sortConfig.type === type && sortConfig.direction === SortDirection.Ascending)
+      directionToPass = SortDirection.Descending;
+
+    setSortConfig( () => ({ type, direction: directionToPass }) );
+  };
 
   useEffect(() => {
     function sortArray({ type, direction }: {type: SortTypes, direction: SortDirection}): void {
@@ -63,8 +72,6 @@ const DataTable = ({ data, loading, error }: {data: any[], loading: boolean, err
 
   if (loading) return <h2 className="flex flex-row justify-center font-medium m-20">Loading...</h2>;
   if (error) console.log(error);
-  
-  console.log('DATA: ', data, 'RENDERDATA: ', renderData);
 
   return (
     <div className="flex flex-col items-center">
@@ -77,35 +84,35 @@ const DataTable = ({ data, loading, error }: {data: any[], loading: boolean, err
                 <tr>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Customer
-                      <button type="button" onClick={() => setSortConfig({ type: SortTypes.Customer, direction: sortConfig.direction * -1 })}>H</button>
+                      <button type="button" onClick={() => sortBy(SortTypes.Customer)}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Provider
-                      <button type="button" onClick={() => setSortConfig({ type: SortTypes.Provider, direction: sortConfig.direction * -1 })}>H</button>
+                      <button type="button" onClick={() => sortBy(SortTypes.Provider)}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Insurance Type
-                      <button type="button" onClick={() => setSortConfig({ type: SortTypes.InsuranceType, direction: sortConfig.direction * -1 })}>H</button>
+                      <button type="button" onClick={() => sortBy(SortTypes.InsuranceType)}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
-                      <button type="button" onClick={() => setSortConfig({ type: SortTypes.Status, direction: sortConfig.direction * -1 })}>H</button>
+                      <button type="button" onClick={() => sortBy(SortTypes.Status)}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Policy Number
-                      <button type="button" onClick={() => setSortConfig({ type: SortTypes.PolicyNumber, direction: sortConfig.direction * -1 })}>H</button>
+                      <button type="button" onClick={() => sortBy(SortTypes.PolicyNumber)}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Start Date
-                      <button type="button" onClick={() => setSortConfig({ type: SortTypes.StartDate, direction: sortConfig.direction * -1 })}>H</button>
+                      <button type="button" onClick={() => sortBy(SortTypes.StartDate)}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     End Date
-                      <button type="button" onClick={() => setSortConfig({ type: SortTypes.EndDate, direction: sortConfig.direction * -1 })}>H</button>
+                      <button type="button" onClick={() => sortBy(SortTypes.EndDate)}>H</button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Created At
-                      <button type="button" onClick={() => setSortConfig({ type: SortTypes.CreatedAt, direction: sortConfig.direction * -1 })}>H</button>
+                      <button type="button" onClick={() => sortBy(SortTypes.CreatedAt)}>H</button>
                   </th>
                   <th scope="col" className="relative px-6 py-3">
                     <span className="sr-only">Edit</span>
