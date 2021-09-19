@@ -7,8 +7,8 @@ const resolvers = {
   Date: GraphQLDate,
   DateTime: GraphQLDateTime,
   Query: {
-    customers: () => customers,
-    policies: () => policies,
+    customers: (parent: any, args: any) => customers,
+    policies: (parent: any, args: any) => policies,
   },
 };
 

@@ -16,6 +16,7 @@ export enum PolicyStatus {
 export const policies = [
   {
     customer: {
+      id: uuidv4(),
       firstName: "Kyle",
       lastName: "Eastwood",
       dateOfBirth: "1967-01-01"
@@ -30,6 +31,7 @@ export const policies = [
   },
   {
     customer: {
+      id: uuidv4(),
       firstName: "Pedro",
       lastName: "Lopez",
       dateOfBirth: "1996-02-05"
@@ -44,6 +46,7 @@ export const policies = [
   },
   {
     customer: {
+      id: uuidv4(),
       firstName: "Angela",
       lastName: "Su",
       dateOfBirth: "1967-01-01"
@@ -58,6 +61,7 @@ export const policies = [
   },
   {
     customer: {
+      id: uuidv4(),
       firstName: "Ngozi",
       lastName: "Anyanwu",
       dateOfBirth: "1986-07-23"
@@ -72,6 +76,7 @@ export const policies = [
   },
   {
     customer: {
+      id: uuidv4(),
       firstName: "Pieter",
       lastName: "Broek",
       dateOfBirth: "1987-06-11"
@@ -86,6 +91,7 @@ export const policies = [
   },
   {
     customer: {
+      id: uuidv4(),
       firstName: "Kenji",
       lastName: "Yamada",
       dateOfBirth: "1992-04-22"
@@ -100,6 +106,7 @@ export const policies = [
   },
   {
     customer: {
+      id: uuidv4(),
       firstName: "Hans",
       lastName: "Müller",
       dateOfBirth: "1955-10-03"
@@ -114,6 +121,7 @@ export const policies = [
   },
   {
     customer: {
+      id: uuidv4(),
       firstName: "Gwen",
       lastName: "O'Donnell",
       dateOfBirth: "1983-03-10"
@@ -125,5 +133,65 @@ export const policies = [
     startDate: "2020-06-01",
     endDate: "2021-01-01",
     createdAt: new Date(2020, 5, 1).toISOString(),
+  },
+  {
+    customer: {
+      id: uuidv4(),
+      firstName: "Sergei",
+      lastName: "Asimov",
+      dateOfBirth: "1975-02-01"
+    },
+    provider: "Allianz",
+    insuranceType: InsuranceType.Health,
+    status: PolicyStatus.DroppedOut,
+    policyNumber: uuidv4().split('').filter(el => el.match(/\d/)).slice(0, 6).join(''),
+    startDate: "2005-02-01",
+    endDate: "2005-06-01",
+    createdAt: new Date(2005, 1, 1).toISOString(),
+  },
+  {
+    customer: {
+      id: uuidv4(),
+      firstName: "Amélie",
+      lastName: "Perrin",
+      dateOfBirth: "1985-03-30"
+    },
+    provider: "AXA",
+    insuranceType: InsuranceType.Health,
+    status: PolicyStatus.Active,
+    policyNumber: uuidv4().split('').filter(el => el.match(/\d/)).slice(0, 6).join(''),
+    startDate: "2019-03-02",
+    endDate: "2024-03-02",
+    createdAt: new Date(2019, 2, 2).toISOString(),
+  },
+  {
+    customer: {
+      id: uuidv4(),
+      firstName: "Jonathan",
+      lastName: "Davis",
+      dateOfBirth: "1971-01-18"
+    },
+    provider: "Talanx",
+    insuranceType: InsuranceType.Liability,
+    status: PolicyStatus.Active,
+    policyNumber: uuidv4().split('').filter(el => el.match(/\d/)).slice(0, 6).join(''),
+    startDate: "2020-03-16",
+    endDate: "2022-03-16",
+    createdAt: new Date(2020, 2, 16).toISOString(),
+  },
+  {
+    customer: {
+      id: uuidv4(),
+      firstName: "Nelson",
+      lastName: "Santos",
+      dateOfBirth: "1989-07-04"
+    },
+    provider: "AXA",
+    insuranceType: InsuranceType.Health,
+    status: PolicyStatus.Active,
+    policyNumber: uuidv4().split('').filter(el => el.match(/\d/)).slice(0, 6).join(''),
+    startDate: "2020-01-18",
+    endDate: "2022-07-18",
+    createdAt: new Date(2020, 0, 18).toISOString(),
   },
 ];

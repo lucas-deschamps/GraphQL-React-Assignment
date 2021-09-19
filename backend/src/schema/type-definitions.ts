@@ -18,6 +18,7 @@ const typeDefinitions = gql`
   }
 
   type Customer {
+    id: ID!
     firstName: String!
     lastName: String!
     dateOfBirth: Date!
@@ -37,6 +38,16 @@ const typeDefinitions = gql`
   type Query {
     customers: [Customer!]
     policies: [Policy!]
+  }
+
+  type Mutation {
+    createCustomer: Customer
+    editCustomer: Customer!
+    deleteCustomer: Customer
+
+    createPolicy: Policy
+    editPolicy: Policy!
+    deletePolicy: Policy
   }
 `;
 
