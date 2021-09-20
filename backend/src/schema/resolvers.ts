@@ -8,22 +8,25 @@ const resolvers = {
   Date: GraphQLDate,
   DateTime: GraphQLDateTime,
   Query: {
+    // Customer queries
     customers: (parent: any, args: any) => customers,
+
+    // Policy queries
     policies: (parent: any, args: any) => policies,
   },
   Mutation: {
-    // Customer resolvers
+    // Customer mutations
     createCustomer: (parent: any, args: any) => {
-      return "hi";
+      return;
     },
     editCustomer: (parent: any, args: any) => {
-      return "hi";
+      return;
     },
     deleteCustomer: (parent: any, args: any) => {
-      return "hi";
+      return;
     },
     
-    // Policy resolvers
+    // Policy mutations
     createPolicy: (parent: any, args: any): Object => {
       const policy = args.input;
       const customer = policy.customer;
@@ -75,7 +78,7 @@ const resolvers = {
       return updatedPolicy;
     },
     deletePolicy: (parent: any, args: any) => {
-      return "hi";
+      return;
     },
   }
 };
