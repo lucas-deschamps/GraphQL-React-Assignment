@@ -65,13 +65,19 @@ const typeDefinitions = gql`
   input EditPolicyInput {
     policyNumber: ID!
 
-    customer: CustomerInput
+    customer: EditPolicyCustomerInput
     provider: String
     insuranceType: InsuranceType
     status: PolicyStatus
     startDate: Date
     endDate: Date
     createdAt: DateTime
+  }
+
+  input EditPolicyCustomerInput {
+    firstName: String
+    lastName: String
+    dateOfBirth: Date
   }
 
   input DeletePolicyInput {

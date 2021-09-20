@@ -24,7 +24,7 @@ const resolvers = {
     },
     
     // Policy resolvers
-    createPolicy: (parent: any, args: any) => {
+    createPolicy: (parent: any, args: any): Object => {
       const policy = args.input;
       const customer = policy.customer;
 
@@ -42,8 +42,37 @@ const resolvers = {
 
       return policy;
     },
-    editPolicy: (parent: any, args: any) => {
-      return "hi";
+    editPolicy: (parent: any, args: any): Object => {
+      const inputPolicyNum = args.input.policyNumber;
+      const update = args.input;
+
+      let updatedPolicy = {};
+
+      for (const policy of policies) {
+        if (policy.policyNumber === inputPolicyNum) {
+          const policyUpdate = {
+            ...policy,
+            customer: {
+              id: policy.customer.id,
+              firstName: update.customer && update.customer.firstName ? update.customer.firstName : policy.customer.firstName,
+              lastName: update.customer && update.customer.lastName ? update.customer.lastName : policy.customer.lastName,
+              dateOfBirth: update.customer && update.customer.dateOfBirth ? update.customer.dateOfBirth : policy.customer.dateOfBirth,
+            },
+            provider: update.provider ? update.provider : policy.provider,
+            insuranceType: update.insuranceType ? update.insuranceType : policy.insuranceType,
+            status: update.status ? update.status : policy.status,
+            startDate: update.startDate ? update.startDate : policy.startDate,
+            endDate: update.endDate ? update.endDate : policy.endDate,
+            createdAt: update.createdAt ? update.createdAt : policy.createdAt,
+          };
+
+          policies.splice(policies.indexOf(policy), 1, policyUpdate);
+          updatedPolicy = policyUpdate;
+          break;
+        }
+      }
+
+      return updatedPolicy;
     },
     deletePolicy: (parent: any, args: any) => {
       return "hi";
