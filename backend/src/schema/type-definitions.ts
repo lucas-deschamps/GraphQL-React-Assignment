@@ -25,17 +25,17 @@ const typeDefinitions = gql`
   }
 
   type Policy {
+    policyNumber: ID!
     customer: Customer!
     provider: String!
     insuranceType: InsuranceType!
     status: PolicyStatus!
-    policyNumber: String!
     startDate: Date!
     endDate: Date!
     createdAt: DateTime!
   }
 
-  input CreateCustomerInput {
+  input CustomerInput {
     firstName: String!
     lastName: String!
     dateOfBirth: Date!
@@ -54,17 +54,18 @@ const typeDefinitions = gql`
   }
 
   input CreatePolicyInput {
+    customer: CustomerInput!
     provider: String!
     insuranceType: InsuranceType!
     status: PolicyStatus!
-    policyNumber: String!
     startDate: Date!
     endDate: Date!
   }
 
   input EditPolicyInput {
-    policyNumber: String!
+    policyNumber: ID!
 
+    customer: CustomerInput
     provider: String
     insuranceType: InsuranceType
     status: PolicyStatus
@@ -74,16 +75,19 @@ const typeDefinitions = gql`
   }
 
   input DeletePolicyInput {
-    policyNumber: String!
+    policyNumber: ID!
   }
 
   type Query {
     customers: [Customer!]
+    customer(id: ID!): Customer
+    
     policies: [Policy!]
+    policy(policyNumber: ID!): Policy
   }
 
   type Mutation {
-    createCustomer(input: CreateCustomerInput!): Customer!
+    createCustomer(input: CustomerInput!): Customer!
     editCustomer(input: EditCustomerInput!): Customer!
     deleteCustomer(input: DeleteCustomerInput!): Customer
 
