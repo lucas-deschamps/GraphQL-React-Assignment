@@ -2,8 +2,8 @@
 
 ## How to Run the Project
 
-Clone the repository, change into its `backend` folder, run `yarn install`, and then run `yarn dev`. The backend should be running on port 4000 by default.
-Open another terminal, change into its `frontend` folder, run `yarn install`, `yarn start`, and then access `http://localhost:3000`.
+* Clone the repository, change into its `backend` folder, run `yarn install`, and then run `yarn dev`. The backend should be running on port 4000 by default.
+* Open another terminal, change into its `frontend` folder, run `yarn install`, `yarn start`, and then access `http://localhost:3000`.
 
 -----
 
