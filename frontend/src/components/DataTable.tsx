@@ -5,6 +5,8 @@ import {
   EDIT_POLICY 
 } from '../graphql/requests/policy/policy-mutations';
 
+import EditIcon from '../components/EditIcon';
+
 interface IPolicy {
   customer: {
     firstName: string;
@@ -161,35 +163,35 @@ const DataTable = (
                 <tr>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Customer
-                      <button type="button" onClick={() => sortBy(SortTypes.Customer)}>H</button>
+                      <button type="button" onClick={() => sortBy(SortTypes.Customer)}><EditIcon/></button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Provider
-                      <button type="button" onClick={() => sortBy(SortTypes.Provider)}>H</button>
+                      <button type="button" onClick={() => sortBy(SortTypes.Provider)}><EditIcon/></button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Insurance Type
-                      <button type="button" onClick={() => sortBy(SortTypes.InsuranceType)}>H</button>
+                      <button type="button" onClick={() => sortBy(SortTypes.InsuranceType)}><EditIcon/></button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
-                      <button type="button" onClick={() => sortBy(SortTypes.Status)}>H</button>
+                      <button type="button" onClick={() => sortBy(SortTypes.Status)}><EditIcon/></button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Policy Number
-                      <button type="button" onClick={() => sortBy(SortTypes.PolicyNumber)}>H</button>
+                      <button type="button" onClick={() => sortBy(SortTypes.PolicyNumber)}><EditIcon/></button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Start Date
-                      <button type="button" onClick={() => sortBy(SortTypes.StartDate)}>H</button>
+                      <button type="button" onClick={() => sortBy(SortTypes.StartDate)}><EditIcon/></button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     End Date
-                      <button type="button" onClick={() => sortBy(SortTypes.EndDate)}>H</button>
+                      <button type="button" onClick={() => sortBy(SortTypes.EndDate)}><EditIcon/></button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Created At
-                      <button type="button" onClick={() => sortBy(SortTypes.CreatedAt)}>H</button>
+                      <button type="button" onClick={() => sortBy(SortTypes.CreatedAt)}><EditIcon/></button>
                   </th>
                 </tr>
               </thead>
@@ -201,7 +203,7 @@ const DataTable = (
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           {record.customer.firstName} {record.customer.lastName}
-                            <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'customer' })}>H</button>
+                            <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'customer' })}><EditIcon/></button>
                             {
                               inEditMode.status && inEditMode.rowColumn === 'customer' && inEditMode.rowKey === record.policyNumber ?
                               <form onSubmit={handleSubmit}>
@@ -228,7 +230,7 @@ const DataTable = (
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           {record.provider}
-                            <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'provider' })}>H</button>
+                            <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'provider' })}><EditIcon/></button>
                             {
                               inEditMode.status && inEditMode.rowColumn === 'provider' && inEditMode.rowKey === record.policyNumber ?
                               <form onSubmit={handleSubmit}>
@@ -247,7 +249,7 @@ const DataTable = (
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           {record.insuranceType}
-                            <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'insuranceType' })}>H</button>
+                            <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'insuranceType' })}><EditIcon/></button>
                             {
                               inEditMode.status && inEditMode.rowColumn === 'insuranceType' && inEditMode.rowKey === record.policyNumber ?
                               <form onSubmit={handleSubmit}>
@@ -266,7 +268,7 @@ const DataTable = (
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           {record.status}
-                            <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'status' })}>H</button>
+                            <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'status' })}><EditIcon/></button>
                             {
                               inEditMode.status && inEditMode.rowColumn === 'status' && inEditMode.rowKey === record.policyNumber ?
                               <form onSubmit={handleSubmit}>
@@ -290,7 +292,7 @@ const DataTable = (
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           {record.startDate}
-                            <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'startDate' })}>H</button>
+                            <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'startDate' })}><EditIcon/></button>
                             {
                               inEditMode.status && inEditMode.rowColumn === 'startDate' && inEditMode.rowKey === record.policyNumber ?
                               <form onSubmit={handleSubmit}>
@@ -309,7 +311,7 @@ const DataTable = (
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           {record.endDate}
-                            <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'endDate' })}>H</button>
+                            <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'endDate' })}><EditIcon/></button>
                             {
                               inEditMode.status && inEditMode.rowColumn === 'endDate' && inEditMode.rowKey === record.policyNumber ?
                               <form onSubmit={handleSubmit}>
