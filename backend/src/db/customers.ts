@@ -45,6 +45,12 @@ export const customers = [
   },
   {
     id: uuidv4(),
+    firstName: "Ngozi",
+    lastName: "Anyanwu",
+    dateOfBirth: "1986-07-23"
+  },
+  {
+    id: uuidv4(),
     firstName: "Sergei",
     lastName: "Asimov",
     dateOfBirth: "1975-02-01"
