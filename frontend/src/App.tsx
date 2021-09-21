@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { useQuery } from '@apollo/client';
 
 // Queries and mutations
-import { QUERY_ALL_POLICIES } from './graphql/policy/policy-queries';
+import {  
+  QUERY_ALL_POLICIES 
+} from './graphql/requests/policy/policy-queries';
 
 // Components
 import DataTable from './components/DataTable';
@@ -13,12 +15,13 @@ import "./index.css";
 
 function App(): JSX.Element {
   const [currentPage, setCurrentPage] = useState(1);
-  const [customersPerPage/*, setCustomersPerPage*/] = useState(5);
+  const [customersPerPage] = useState(5);
 
   const { 
-    data: policyData, 
-    loading: policyLoading, 
-    error: policyError 
+    data: policyData,
+    loading: policyLoading,
+    error: policyError,
+    refetch
   } = useQuery(QUERY_ALL_POLICIES);
 
   // Pagination
@@ -35,7 +38,12 @@ function App(): JSX.Element {
 
   return (
       <>
-        <DataTable data={currentPageSlice} loading={policyLoading} error={policyError} />
+        <DataTable 
+          data={currentPageSlice} 
+          loading={policyLoading} 
+          error={policyError}
+          refetch={refetch}
+        />
         <PaginationRow 
           nextPage={paginateForward} 
           previousPage={paginateBackward} 

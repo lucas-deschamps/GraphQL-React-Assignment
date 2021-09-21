@@ -1,9 +1,10 @@
 import { gql } from '@apollo/client';
 
 export const QUERY_ALL_POLICIES = gql`
-  query {
+  query GetAllPolicies {
     policies {
       customer {
+        id
         firstName
         lastName
         dateOfBirth

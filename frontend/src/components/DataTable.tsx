@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { ApolloError } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
+
+import { 
+  EDIT_POLICY 
+} from '../graphql/requests/policy/policy-mutations';
 
 interface IPolicy {
   customer: {
@@ -32,10 +36,34 @@ enum SortDirection {
   Ascending,
 };
 
-const DataTable = ({ data, loading, error }: {data: any[], loading: boolean, error: undefined | ApolloError}): JSX.Element => {
+const DataTable = (
+{ data, loading, error, refetch }: {data: any[], loading: boolean, error: undefined | ApolloError, refetch: any}
+): JSX.Element => {
+  // States
+  // Data to be rendered in the table
   const [renderData, setRenderData]: [renderData: any[], setRenderData: any] = useState(data);
-  const [sortConfig, setSortConfig]: [sortType: any, setSortConfig: any] = useState({ type: SortTypes.Status, direction: SortDirection.Ascending });
 
+  const [sortConfig, setSortConfig]: [sortConfig: any, setSortConfig: any] = useState(
+    { type: SortTypes.Status, direction: SortDirection.Ascending }
+  );
+  
+  const [inEditMode, setInEditMode]: [inEditMode: any, setInEditMode: any] = useState(
+    { status: false, rowKey: null, rowColumn: null }
+  );
+
+  // Editable fields
+  const [firstNameEdit, setFirstNameEdit] = useState('');
+  const [lastNameEdit, setLastNameEdit] = useState('');
+  const [providerEdit, setProviderEdit] = useState('');
+  const [insuranceTypeEdit, setInsuranceTypeEdit] = useState('');
+  const [statusEdit, setStatusEdit] = useState('');
+  const [startDateEdit, setStartDateEdit] = useState('');
+  const [endDateEdit, setEndDateEdit] = useState('');
+
+  // Mutations
+  const [editPolicy, { error: mutationError }] = useMutation(EDIT_POLICY);
+
+  // Functions
   const sortBy = (type: SortTypes): void => {
     let directionToPass = SortDirection.Ascending;
 
@@ -70,8 +98,58 @@ const DataTable = ({ data, loading, error }: {data: any[], loading: boolean, err
     sortArray(sortConfig);
   }, [sortConfig, data]);
 
-  if (loading) return <h2 className="flex flex-row justify-center font-medium m-20">Loading...</h2>;
-  if (error) console.log(error);
+  // Handle functions
+  const handleFirstName = (e: Event | any) => setFirstNameEdit(e.currentTarget.value);
+  const handleLastName = (e: Event | any) => setLastNameEdit(e.currentTarget.value);
+  const handleProvider = (e: Event | any) => setProviderEdit(e.currentTarget.value);
+  const handleInsuranceType = (e: Event | any) => setInsuranceTypeEdit(e.currentTarget.value);
+  const handleStatus = (e: Event | any) => setStatusEdit(e.currentTarget.value);
+  const handleStartDate = (e: Event | any) => setStartDateEdit(e.currentTarget.value);
+  const handleEndDate = (e: Event | any) => setEndDateEdit(e.currentTarget.value);
+
+  const handleSubmit = (e: Event | any): void => {
+    if (mutationError) console.error(mutationError);
+    
+    e.preventDefault();
+
+    editPolicy({
+      variables: {
+        editPolicyInput: {
+          policyNumber: inEditMode.rowKey,
+          customer: {
+            firstName: firstNameEdit ? firstNameEdit : null,
+            lastName: lastNameEdit ? lastNameEdit : null,
+          },
+          provider: providerEdit ? providerEdit : null,
+          insuranceType: insuranceTypeEdit ? insuranceTypeEdit : null,
+          status: statusEdit ? statusEdit : null,
+          startDate: startDateEdit ? startDateEdit : null,
+          endDate: endDateEdit ? endDateEdit : null,
+        }
+      }
+    });
+
+    setInEditMode({ status: false, rowKey: null, rowColumn: null });
+
+    // resetting states
+    setFirstNameEdit(''); setLastNameEdit(''); setProviderEdit(''); 
+    setInsuranceTypeEdit(''); setStatusEdit(''); setStartDateEdit(''); 
+    setEndDateEdit('');
+
+    refetch();
+  };
+
+  // Misc.
+  if (loading) return (<h2 className="flex flex-row justify-center font-medium m-20">Loading...</h2>);
+  
+  if (error) return (
+    <div className="flex flex-col items-center font-medium m-20">
+      <h2>We had a problem. We're very sorry.</h2>
+      <div className="flex flex-col">
+        <h2>Please try refreshing the page.</h2>
+      </div>
+    </div>
+  );
 
   return (
     <div className="flex flex-col items-center">
@@ -114,9 +192,6 @@ const DataTable = ({ data, loading, error }: {data: any[], loading: boolean, err
                     Created At
                       <button type="button" onClick={() => sortBy(SortTypes.CreatedAt)}>H</button>
                   </th>
-                  <th scope="col" className="relative px-6 py-3">
-                    <span className="sr-only">Edit</span>
-                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -127,21 +202,85 @@ const DataTable = ({ data, loading, error }: {data: any[], loading: boolean, err
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           {record.customer.firstName} {record.customer.lastName}
+                            <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'customer' })}>H</button>
+                            {
+                              inEditMode.status && inEditMode.rowColumn === 'customer' && inEditMode.rowKey === record.policyNumber ?
+                              <form onSubmit={handleSubmit}>
+                                <input
+                                  className="mx-2"
+                                  type="text"
+                                  placeholder="First name"
+                                  onChange={handleFirstName}
+                                  required
+                                />
+                                <input
+                                  className="mx-2"
+                                  type="text"
+                                  placeholder="Last name"
+                                  onChange={handleLastName}
+                                  required
+                                />
+                                <button type="submit"></button>
+                              </form> 
+                              : null
+                            }
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           {record.provider}
+                            <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'provider' })}>H</button>
+                            {
+                              inEditMode.status && inEditMode.rowColumn === 'provider' && inEditMode.rowKey === record.policyNumber ?
+                              <form onSubmit={handleSubmit}>
+                                <input
+                                  className="mx-2"
+                                  type="text"
+                                  placeholder="Provider"
+                                  onChange={handleProvider}
+                                  autoFocus
+                                />
+                              </form> 
+                              : null
+                            }
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           {record.insuranceType}
+                            <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'insuranceType' })}>H</button>
+                            {
+                              inEditMode.status && inEditMode.rowColumn === 'insuranceType' && inEditMode.rowKey === record.policyNumber ?
+                              <form onSubmit={handleSubmit}>
+                                <input
+                                  className="mx-2"
+                                  type="text"
+                                  placeholder="Insurance Type"
+                                  onChange={handleInsuranceType}
+                                  autoFocus
+                                />
+                              </form> 
+                              : null
+                            }
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           {record.status}
+                            <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'status' })}>H</button>
+                            {
+                              inEditMode.status && inEditMode.rowColumn === 'status' && inEditMode.rowKey === record.policyNumber ?
+                              <form onSubmit={handleSubmit}>
+                                <input
+                                  className="mx-2"
+                                  type="text"
+                                  placeholder="Status"
+                                  onChange={handleStatus}
+                                  autoFocus
+                                />
+                              </form> 
+                              : null
+                            }
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -152,11 +291,39 @@ const DataTable = ({ data, loading, error }: {data: any[], loading: boolean, err
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           {record.startDate}
+                            <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'startDate' })}>H</button>
+                            {
+                              inEditMode.status && inEditMode.rowColumn === 'startDate' && inEditMode.rowKey === record.policyNumber ?
+                              <form onSubmit={handleSubmit}>
+                                <input
+                                  className="mx-2"
+                                  type="text"
+                                  placeholder="Start Date"
+                                  onChange={handleStartDate}
+                                  autoFocus
+                                />
+                              </form> 
+                              : null
+                            }
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           {record.endDate}
+                            <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'endDate' })}>H</button>
+                            {
+                              inEditMode.status && inEditMode.rowColumn === 'endDate' && inEditMode.rowKey === record.policyNumber ?
+                              <form onSubmit={handleSubmit}>
+                                <input
+                                  className="mx-2"
+                                  type="text"
+                                  placeholder="End Date"
+                                  onChange={handleEndDate}
+                                  autoFocus
+                                />
+                              </form> 
+                              : null
+                            }
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
