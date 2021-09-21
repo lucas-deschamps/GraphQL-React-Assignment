@@ -6,6 +6,7 @@ import {
 } from '../graphql/requests/policy/policy-mutations';
 
 import EditIcon from '../components/EditIcon';
+import SortIcon from '../components/SortIcon';
 
 interface IPolicy {
   customer: {
@@ -163,35 +164,35 @@ const DataTable = (
                 <tr>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Customer
-                      <button type="button" onClick={() => sortBy(SortTypes.Customer)}><EditIcon/></button>
+                      <button type="button" onClick={() => sortBy(SortTypes.Customer)}><SortIcon/></button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Provider
-                      <button type="button" onClick={() => sortBy(SortTypes.Provider)}><EditIcon/></button>
+                      <button type="button" onClick={() => sortBy(SortTypes.Provider)}><SortIcon/></button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Insurance Type
-                      <button type="button" onClick={() => sortBy(SortTypes.InsuranceType)}><EditIcon/></button>
+                      <button type="button" onClick={() => sortBy(SortTypes.InsuranceType)}><SortIcon/></button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
-                      <button type="button" onClick={() => sortBy(SortTypes.Status)}><EditIcon/></button>
+                      <button type="button" onClick={() => sortBy(SortTypes.Status)}><SortIcon/></button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Policy Number
-                      <button type="button" onClick={() => sortBy(SortTypes.PolicyNumber)}><EditIcon/></button>
+                      <button type="button" onClick={() => sortBy(SortTypes.PolicyNumber)}><SortIcon/></button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Start Date
-                      <button type="button" onClick={() => sortBy(SortTypes.StartDate)}><EditIcon/></button>
+                      <button type="button" onClick={() => sortBy(SortTypes.StartDate)}><SortIcon/></button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     End Date
-                      <button type="button" onClick={() => sortBy(SortTypes.EndDate)}><EditIcon/></button>
+                      <button type="button" onClick={() => sortBy(SortTypes.EndDate)}><SortIcon/></button>
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Created At
-                      <button type="button" onClick={() => sortBy(SortTypes.CreatedAt)}><EditIcon/></button>
+                      <button type="button" onClick={() => sortBy(SortTypes.CreatedAt)}><SortIcon/></button>
                   </th>
                 </tr>
               </thead>
