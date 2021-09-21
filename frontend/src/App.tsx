@@ -7,6 +7,7 @@ import {
 } from './graphql/requests/policy/policy-queries';
 
 // Components
+import Header from './components/Header';
 import DataTable from './components/DataTable';
 import PaginationRow from './components/PaginationRow';
 
@@ -38,6 +39,7 @@ function App(): JSX.Element {
 
   return (
       <>
+        <Header/>
         <DataTable 
           data={currentPageSlice} 
           loading={policyLoading} 
