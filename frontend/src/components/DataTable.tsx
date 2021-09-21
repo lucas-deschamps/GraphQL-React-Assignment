@@ -124,8 +124,8 @@ const DataTable = (
             lastName: lastNameEdit ? lastNameEdit : null,
           },
           provider: providerEdit ? providerEdit : null,
-          insuranceType: insuranceTypeEdit ? insuranceTypeEdit : null,
-          status: statusEdit ? statusEdit : null,
+          insuranceType: insuranceTypeEdit ? insuranceTypeEdit.toUpperCase() : null,
+          status: statusEdit ? statusEdit.toUpperCase() : null,
           startDate: startDateEdit ? startDateEdit : null,
           endDate: endDateEdit ? endDateEdit : null,
         }
@@ -268,7 +268,7 @@ const DataTable = (
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          {record.status}
+                          {record.status.replace(/_/g, ' ')}
                             <button className="flex flex-col mx-2" type="button" onClick={() => setInEditMode({ status: true, rowKey: record.policyNumber, rowColumn: 'status' })}><EditIcon/></button>
                             {
                               inEditMode.status && inEditMode.rowColumn === 'status' && inEditMode.rowKey === record.policyNumber ?
